@@ -1,0 +1,11 @@
+
+Winter14 Digit Recognizer
+========================================================
+
+This is the first commit page of the **digit** project under the **winter14** organization at https://github.com/winter14/digit.git.  We're going for a collaborative approach to data mining, developing and sharing code and markdown via Github.
+
+When you click the **Knit HTML** button a web page will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r}
+summary(cars)
+```
