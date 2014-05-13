@@ -1,0 +1,44 @@
+
+Kaggle Digit Recognizer
+
+knn_benchmark.R baseline solution
+---------------------------------
+
+This is the knn_benchmark.R solution directly from Kaggle except as noted below
+* Requires package FNN 
+* Project setup assumed to be like this:
+ * [localprojectroot]
+ * [localprojectroot]/digit
+ * [localprojectroot]/digit/src _# rmd, md, html and csv-output files_
+ * [localprojectroot]/digit/data _# csv-input files from Kaggle (train.csv and test.csv)_
+
+Added: timing code
+```{r}
+startClock <- proc.time()
+```
+This section is directly from the Kaggle knn_benchmark.R solution:
+```{r}
+library(FNN)
+
+train <- read.csv("../data/train.csv", header=TRUE)
+test <- read.csv("../data/test.csv", header=TRUE)
+
+# To test subset:
+# train <- train[1:100,]
+# test <- test[1:100,]
+
+labels <- train[,1]
+train <- train[,-1]
+results <- (0:9)[knn(train, test, labels, k = 10, algorithm="cover_tree")]
+```
+The Kaggle knn_benchmark.R example writes a single column of predicted digits to the output file, but that format isn't accepted by Kaggle when you submit it.  Instead, two columns are needed as follows: the first column is simply the row number and the second column is the predicited digit. The two columns are separated by a comma.
+```{r}
+# Invalid format:
+#write(results, file="knn_benchmark.csv", ncolumns=1)
+# Correct format:
+write(t(cbind(c(1:length(results)), results)), file="knn_benchmark.csv", ncolumns=2, sep=",")
+```
+Added: timing code
+```{r}
+cat("elapsed minutes: ", (proc.time()[3] - startClock[3])/60)
+```
